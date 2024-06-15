@@ -21,16 +21,8 @@ updateWorldSettings();
 
 const sequence = new RecamanSequence();
 sequence.step();
-sequence.step();
-sequence.step();
-sequence.step();
-sequence.step();
-sequence.step();
-sequence.step();
-sequence.step();
-sequence.step();
-sequence.step();
-sequence.step();
+
+let percent = 0;
 
 const update = () => {
 
@@ -42,10 +34,17 @@ const update = () => {
   ctx.translate(scale, worldHeight2);
   ctx.scale(scale, scale);
   ctx.lineWidth = 1 / scale;
-  sequence.draw(ctx);
+  sequence.draw(ctx, percent);
 
   ctx.restore();
   updateWorldSettings();
+
+  percent += 0.01;
+  if (percent > 1) {
+    percent = 0;
+
+    sequence.step();
+  }
 
   requestAnimationFrame(update);
 }
