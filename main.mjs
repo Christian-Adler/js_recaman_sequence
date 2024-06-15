@@ -1,4 +1,4 @@
-import {RecamanSequence} from "./recamansequence.mjs";
+import {Sequence} from "./sequence.mjs";
 import {lerp} from "./utils.mjs";
 
 const canvas = document.getElementById("canvas");
@@ -20,7 +20,8 @@ const updateWorldSettings = () => {
 
 updateWorldSettings();
 
-const sequence = new RecamanSequence();
+let sequenceType = 'recaman'; // recaman,fibonacci
+const sequence = new Sequence(sequenceType);
 const preSteps = 1
 for (let i = 0; i < preSteps; i++) {
   sequence.step();
