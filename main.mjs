@@ -20,9 +20,10 @@ const updateWorldSettings = () => {
 
 updateWorldSettings();
 
-let sequenceType = 'recaman'; // recaman,fibonacci
+const sequenceType = 'recaman'; // recaman,fibonacci
+let lineWidth = 10;
+const preSteps = 1;
 const sequence = new Sequence(sequenceType);
-const preSteps = 1
 for (let i = 0; i < preSteps; i++) {
   sequence.step();
 }
@@ -40,7 +41,7 @@ const update = () => {
   const scale = worldWidth / (2 + lerp(prevMax, sequence.max, percent) - sequence.min);
   ctx.translate(scale, worldHeight2);
   ctx.scale(scale, scale);
-  ctx.lineWidth = 1 / scale;
+  ctx.lineWidth = lineWidth / scale;
   sequence.draw(ctx, percent);
 
   ctx.restore();
@@ -51,6 +52,10 @@ const update = () => {
     percent = 0;
     prevMax = sequence.max;
     sequence.step();
+
+    if (lineWidth > 1)
+      lineWidth -= 0.1;
+
     if (percentIncrement >= 0.5)
       percentIncrement = 2;
     else if (percentIncrement < 0.5)
