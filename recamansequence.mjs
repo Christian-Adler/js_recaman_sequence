@@ -12,11 +12,8 @@ class RecamanSequence {
 
   step() {
     this.counter++;
-    let nextStep;
-    const negativeStepWouldBe = this.actPos - this.counter;
-    if (negativeStepWouldBe > 0 && !this.visitedNumbers.has(negativeStepWouldBe))
-      nextStep = negativeStepWouldBe;
-    else
+    let nextStep = this.actPos - this.counter;
+    if (nextStep <= 0 || this.visitedNumbers.has(nextStep))
       nextStep = this.actPos + this.counter;
 
     this.visitedNumbers.add(nextStep);
