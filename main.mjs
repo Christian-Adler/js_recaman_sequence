@@ -21,7 +21,10 @@ const updateWorldSettings = () => {
 updateWorldSettings();
 
 const sequence = new RecamanSequence();
-sequence.step();
+const preSteps = 1
+for (let i = 0; i < preSteps; i++) {
+  sequence.step();
+}
 
 let percent = 0;
 let percentIncrement = 0.01;
@@ -47,8 +50,10 @@ const update = () => {
     percent = 0;
     prevMax = sequence.max;
     sequence.step();
-    if (percentIncrement < 0.1)
-      percentIncrement += 0.01;
+    if (percentIncrement >= 0.5)
+      percentIncrement = 2;
+    else if (percentIncrement < 0.5)
+      percentIncrement += 0.001;
   }
 
   requestAnimationFrame(update);
