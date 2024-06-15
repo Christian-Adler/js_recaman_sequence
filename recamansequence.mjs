@@ -29,27 +29,37 @@ class RecamanSequence {
   draw(ctx, percent) {
     let prevNumber = 0;
     let item;
+    let drawAbove = true;
     for (let i = 0; i < this.sequence.length - 1; i++) {
       item = this.sequence[i];
-      this.drawSequenceItem(item, prevNumber, 1, ctx);
+      this.drawSequenceItem(item, prevNumber, drawAbove, 1, ctx);
       prevNumber = item.number;
+
+      drawAbove = !drawAbove;
     }
 
     item = this.sequence[this.sequence.length - 1];
-    this.drawSequenceItem(item, prevNumber, percent, ctx);
+    this.drawSequenceItem(item, prevNumber, drawAbove, percent, ctx);
   }
 
-  drawSequenceItem(item, prevNumber, percent, ctx) {
+  drawSequenceItem(item, prevNumber, drawAbove, percent, ctx) {
     const r = item.counter / 2;
     const x1 = prevNumber;
     const x2 = item.number;
 
     ctx.strokeStyle = 'hsl(' + (r) + ' 100% 50% / ' + (50) + '%)';
     ctx.beginPath();
-    if (x2 > x1)
-      ctx.arc(x1 + r, 0, r, Math.PI, lerp(Math.PI, Math.PI * 2, percent));
-    else
-      ctx.arc(x2 + r, 0, r, 0, lerp(0, Math.PI, percent));
+    if (x2 > x1) {
+      if (drawAbove)
+        ctx.arc(x1 + r, 0, r, Math.PI, lerp(Math.PI, Math.PI * 2, percent));
+      else
+        ctx.arc(x1 + r, 0, r, Math.PI, lerp(Math.PI, 0, percent), true);
+    } else {
+      if (drawAbove)
+        ctx.arc(x2 + r, 0, r, Math.PI * 2, lerp(Math.PI * 2, Math.PI, percent), true);
+      else
+        ctx.arc(x2 + r, 0, r, 0, lerp(0, Math.PI, percent));
+    }
     ctx.stroke();
   }
 }
