@@ -30,7 +30,6 @@ class RecamanSequence {
   }
 
   draw(ctx, percent) {
-    // const drawAsCircle = true;
     let prevNumber = 0;
     let item;
     for (let i = 0; i < this.sequence.length - 1; i++) {
@@ -48,15 +47,12 @@ class RecamanSequence {
     const x1 = prevNumber;
     const x2 = item.number;
 
+    ctx.strokeStyle = 'hsl(' + (r) + ' 100% 50% / ' + (50) + '%)';
     ctx.beginPath();
-    // if (drawAsCircle) {
-    //   ctx.arc(Math.min(x1, x2) + r, 0, r, 0, Math.PI * 2);
-    // } else {
     if (x2 > x1)
       ctx.arc(x1 + r, 0, r, Math.PI, lerp(Math.PI, Math.PI * 2, percent));
     else
       ctx.arc(x2 + r, 0, r, 0, lerp(0, Math.PI, percent));
-    // }
     ctx.stroke();
   }
 }
